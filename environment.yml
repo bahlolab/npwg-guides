@@ -5,5 +5,4 @@ dependencies:
   - bcftools=1.12
   - bwa=0.7.17
   - samtools=1.12
-  - multiqc
 
