@@ -86,13 +86,21 @@
     - Use the your GitHub account under Build Settings
     - Use the default build rule, as well as adding one for the dev branch
 <img src="figs/build_rules.png" width="672" />
+
     - Click 'Create and Build' to create the container and start a build
     
 4. Navigate to the 'Builds' tab in your container repository on Docker Hub. Here you can view the status of your build, and check the logs in case the build fails.
-  - **Optional:** Turn off autobuild. By default Docker Hub will rebuild you container every time you push to your github repository. This usually unnecessary, as you can trigger the builds manually whenever you make a change to 'Dockerfile' or 'environment.yml'. To do this navigate to the 'Builds' tab and then click 'Configure Automated Builds'.
+  - **Optional:** Turn off autobuild. By default Docker Hub will rebuild you container every time you push to your github repository. This mostly unnecessary, as you can trigger the builds manually whenever you make a change to 'Dockerfile' or 'environment.yml'. To do this navigate to the 'Builds' tab and then click 'Configure Automated Builds' and turn off 'Autobuild'.
   
-5. Once you container has built successfully, you can start using it in your pipeline by setting either `singularity.enabled = true` or `docker.enabled = true` and `process.container` to your docker hub container (e.g. `process.container='jemunro/npwg-example:dev'`).
+5. Once you container has built successfully, you can start using it in your pipeline by using the container address (e.g. 'jemunro/npwg-example:dev').
       
+### 4. Workflow & container versions
+
+* The docker tags 'latest' and 'dev' will point to the most recent builds in your dev and master branches, however it is useful to tag specific container versions. This can be achieved using [git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) and a Tag Autobuild rule on docker hub.
+
+1. Add a 'Tag' rule to the Autobuild rule on Docker Hub (see below). This will pick up version tags such as 'v0.1' or 'v2.3.1'.
+
+<img src="figs/build_rules_tag.png" width="672" />
 
 
     
