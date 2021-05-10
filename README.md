@@ -1,8 +1,15 @@
-# NPWG-example
 
-## 1. Creating the workflow container
+## Creating a workflow container
 
-### A. The Conda Environment
+### 1. Create a workflow Github Repository
+1. Create a GitHub repository following the instructions on GitHub.  
+2. Create a new branch called 'dev'
+
+    ```sh
+    git checkout -b dev
+    ```
+
+### 2. The Conda Environment
 
 * Prerequisite: [install conda](https://docs.conda.io/en/latest/miniconda.html)  
 * See also: [conda cheatsheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
@@ -43,11 +50,11 @@
     conda env update -f environment.yml
     ```
 
-### B. The Docker Container
+### 3. The Docker Container
 
-* Prerequisites: Github account and [Docker Hub](https://hub.docker.com/) account linked to GitHub Account
+* Prerequisite: Github account and [Docker Hub](https://hub.docker.com/) account linked to GitHub Account
 
-1. Create a file named 'Dockerfile' in your workflow git repository. The following is a generic dockerfile that can be used for any conda based container, the only parameter that needs to be set is `ARG NAME` to that of your conda environment.
+2. Create a file named 'Dockerfile' in your workflow git repository. The following is a generic dockerfile that can be used for any conda based container, the only parameter that needs to be set is `ARG NAME=` to that of your conda environment.
 
     ```dockerfile
     FROM biocontainers/biocontainers:latest
@@ -67,5 +74,25 @@
     # set path
     ENV PATH="/opt/conda/envs/$NAME/bin:/opt/conda/bin:${PATH}"
     ```
-2
+2. Add 'Dockerfile' and 'environment.yml' to your git repository, commit changes and push to your github repository.
+
+    ```sh
+    git add Dockerfile environment.yml
+    git commit -m 'add Dockerfile and environment.yml'
+    git push origin dev
+    ```
+3. Navigate to [Docker Hub](https://hub.docker.com/), sign into your account and create a repository for your container.
+    - Enter a name for your repository/container
+    - Use the your GitHub account under Build Settings
+    - Use the default build rule, as well as adding one for the dev branch
+<img src="figs/build_rules.png" width="672" />
+    - Click 'Create and Build' to create the container and start a build
+    
+4. Navigate to the 'Builds' tab in your container repository on Docker Hub. Here you can view the status of your build, and check the logs in case the build fails.
+  - **Optional:** Turn off autobuild. By default Docker Hub will rebuild you container every time you push to your github repository. This usually unnecessary, as you can trigger the builds manually whenever you make a change to 'Dockerfile' or 'environment.yml'. To do this navigate to the 'Builds' tab and then click 'Configure Automated Builds'.
+  
+5. Once you container has built successfully, you can start using it in your pipeline by setting either `singularity.enabled = true` or `docker.enabled = true` and `process.container` to your docker hub container (e.g. `process.container='jemunro/npwg-example:dev'`).
+      
+
+
     
