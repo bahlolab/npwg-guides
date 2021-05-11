@@ -54,7 +54,7 @@
 
 * Prerequisite: Github account and [Docker Hub](https://hub.docker.com/) account linked to GitHub Account
 
-2. Create a file named 'Dockerfile' in your workflow git repository. The following is a generic dockerfile that can be used for any conda based container, the only parameter that needs to be set is `ARG NAME=` to that of your conda environment.
+1. Create a file named 'Dockerfile' in your workflow git repository. The following is a generic dockerfile that can be used for any conda based container, the only parameter that needs to be set is `ARG NAME=` to that of your conda environment.
 
     ```dockerfile
     FROM biocontainers/biocontainers:latest
