@@ -1,4 +1,4 @@
-FROM biocontainers/biocontainers:latest
+FROM nfcore/base:1.14
 
 LABEL \
   author="Jacob Munro" \
